@@ -5,7 +5,7 @@ import ProvideInject from "./components/provide_inject/App.vue";
 import AdvancedComps from "./components/advanced_components/App.vue";
 import ProjectComponents from "./components/project_components/App.vue";
 
-import { ref, watch } from "vue";
+import { computed, ref, watch } from "vue";
 
 const pages = [
     HelloWorldWelcome,
@@ -14,25 +14,26 @@ const pages = [
     AdvancedComps,
     ProjectComponents,
 ];
-const pageSelected = ref(4);
+const pageSelectedIndex = ref(4);
+const pageSelected = computed(() => pages[pageSelectedIndex.value]);
 
-watch(pageSelected, (newPage) => {
+watch(pageSelectedIndex, (newPage) => {
     if (newPage >= pages.length || newPage < 0) {
-        pageSelected.value = 0;
+        pageSelectedIndex.value = 0;
     }
 });
 </script>
 
 <template>
     <nav>
-        <button @click="pageSelected++">Next</button>
+        <button @click="pageSelectedIndex++">Next</button>
     </nav>
 
     <!-- keep alive : keeps state even while hidden -->
     <!-- component : dynamically displaying components, avoids v-if, v-else-if, ... -->
-    <!--<KeepAlive>-->
-    <component :is="pages[pageSelected]" />
-    <!--</KeepAlive>-->
+    <KeepAlive>
+        <component :is="pageSelected" />
+    </KeepAlive>
 </template>
 
 <style>

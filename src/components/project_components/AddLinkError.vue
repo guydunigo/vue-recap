@@ -10,7 +10,7 @@ const confirm = () => emit("confirm");
 
 <template>
     <Teleport to="body">
-        <div id="background"></div>
+        <div id="background" @click="confirm"></div>
         <dialog open>
             <header v-if="$slots.header">
                 <slot name="header">

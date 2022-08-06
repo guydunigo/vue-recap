@@ -54,17 +54,17 @@ function closeError() {
         <form @submit.prevent="addLink">
             <div>
                 <label for="title">Title</label>
-                <input id="title" v-model="title" type="text" />
+                <input id="title" v-model.trim="title" type="text" />
             </div>
 
             <div>
                 <label for="description">Description</label>
-                <textarea id="description" v-model="description" />
+                <textarea id="description" v-model.trim="description" />
             </div>
 
             <div>
                 <label for="link">Link</label>
-                <input id="link" v-model="link" type="url" />
+                <input id="link" v-model.trim="link" type="url" />
             </div>
 
             <div>
