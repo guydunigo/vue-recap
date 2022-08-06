@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import MySlots from "./MySlots.vue";
-import { defineProps } from "vue";
+// import { defineProps } from "vue";
 
 defineProps<{ goals: string[] }>();
 </script>

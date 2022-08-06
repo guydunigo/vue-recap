@@ -20,7 +20,7 @@
         </p>
         <!-- Accept sub-elements with slot -->
         <!-- One unnamed slot only, the default -->
-        <slot></slot>
+        <slot />
     </div>
 </template>
 
