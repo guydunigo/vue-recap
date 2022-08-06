@@ -17,7 +17,7 @@ const selectTab = (t: TabInfo) => emit("select-tab", t);
         <section>
             <button
                 v-for="t in props.tabs"
-                :key="t.component"
+                :key="t.text"
                 :class="['flat', { active: props.activeTab === t }]"
                 @click="selectTab(t)"
             >

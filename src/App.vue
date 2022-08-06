@@ -38,6 +38,7 @@ watch(pageSelectedIndex, (newPage) => {
 
 <style>
 nav {
+    z-index: 101;
     display: block;
     position: fixed;
     left: 0;

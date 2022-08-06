@@ -4,26 +4,35 @@ import HelloWorld from "./HelloWorld.vue";
 </script>
 
 <template>
-    <header>
-        <img
-            alt="Vue logo"
-            class="logo"
-            src="../assets/logo.svg"
-            width="125"
-            height="125"
-        />
+    <section>
+        <header>
+            <img
+                alt="Vue logo"
+                class="logo"
+                src="../assets/logo.svg"
+                width="125"
+                height="125"
+            />
 
-        <div class="wrapper">
-            <HelloWorld msg="You did it!" />
-        </div>
-    </header>
+            <div class="wrapper">
+                <HelloWorld msg="You did it!" />
+            </div>
+        </header>
 
-    <main>
-        <TheWelcome />
-    </main>
+        <main>
+            <TheWelcome />
+        </main>
+    </section>
 </template>
 
 <style scoped>
+section {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 2rem;
+    font-weight: normal;
+}
+
 header {
     line-height: 1.5;
 }
@@ -34,6 +43,13 @@ header {
 }
 
 @media (min-width: 1024px) {
+    section {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        padding: 0 2rem;
+        flex: 100%;
+    }
+
     header {
         display: flex;
         place-items: center;

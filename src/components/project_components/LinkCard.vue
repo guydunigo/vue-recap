@@ -4,8 +4,8 @@ import { defineProps, inject } from "vue";
 
 const props = defineProps<{ link: Link }>();
 
-const deleteLink: (title: string) => null = inject("deleteLink");
-const deleteThisLink = () => deleteLink(props.link.title);
+const deleteLink = inject<(title: string) => void>("deleteLink");
+const deleteThisLink = () => deleteLink && deleteLink(props.link.title);
 </script>
 
 <template>

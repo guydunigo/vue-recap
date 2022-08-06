@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 
-const confirmBtn = ref<null | { focus }>(null);
+const confirmBtn = ref<null | { focus(): void }>(null);
 onMounted(() => confirmBtn.value?.focus());
 
-const emit = defineEmits<{ (e: "confirm") }>();
+const emit = defineEmits<{ (e: "confirm"): void }>();
 const confirm = () => emit("confirm");
 </script>
 
