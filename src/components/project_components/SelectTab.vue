@@ -2,7 +2,7 @@
 import type TabInfo from "./TabInfo";
 import TheCard from "./TheCard.vue";
 
-import { defineProps, defineEmits } from "vue";
+// import { defineProps, defineEmits } from "vue";
 
 const props = defineProps<{ tabs: TabInfo[]; activeTab: TabInfo }>();
 

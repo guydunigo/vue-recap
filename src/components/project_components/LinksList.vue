@@ -2,7 +2,7 @@
 import type Link from "./Link";
 import TheCard from "./TheCard.vue";
 import LinkCard from "./LinkCard.vue";
-import { defineProps } from "vue";
+// import { defineProps } from "vue";
 
 const props = defineProps<{ links: Link[] }>();
 </script>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type Link from "./Link";
-import { defineProps, inject } from "vue";
+import { inject /*, defineProps */ } from "vue";
 
 const props = defineProps<{ link: Link }>();
 

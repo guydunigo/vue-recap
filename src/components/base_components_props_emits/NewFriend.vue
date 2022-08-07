@@ -17,11 +17,14 @@ const new_friend = () => {
         emit("new-friend", name.value, phone.value, age.value);
     }
 };
+
+const setName = (e: Event) =>
+    (name.value = (e.target as HTMLInputElement).value.trim().toUpperCase());
 </script>
 
 <template>
     <form @submit.prevent="new_friend">
-        <input v-model="name" type="text" placeholder="Name" />
+        <input :value="name" type="text" placeholder="Name" @input="setName" />
         <input v-model="phone" type="tel" placeholder="Phone number" />
         <input v-model.number="age" type="number" placeholder="Age" />
 

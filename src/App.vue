@@ -4,6 +4,7 @@ import BaseComponentsPropsEmits from "./components/base_components_props_emits/A
 import ProvideInject from "./components/provide_inject/App.vue";
 import AdvancedComps from "./components/advanced_components/App.vue";
 import ProjectComponents from "./components/project_components/App.vue";
+import TicTacToe from "./components/tic_tac_toe/App.vue";
 
 import { computed, ref, watch } from "vue";
 
@@ -13,8 +14,9 @@ const pages = [
     ProvideInject,
     AdvancedComps,
     ProjectComponents,
+    TicTacToe,
 ];
-const pageSelectedIndex = ref(4);
+const pageSelectedIndex = ref(5);
 const pageSelected = computed(() => pages[pageSelectedIndex.value]);
 
 watch(pageSelectedIndex, (newPage) => {
