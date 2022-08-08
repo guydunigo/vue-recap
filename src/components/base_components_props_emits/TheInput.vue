@@ -35,11 +35,12 @@ const maxDay = computed(() =>
 
 // const emit = defineEmits<{ (e: "update:modelValue", new: Date): void }>();
 const emit = defineEmits(["update:modelValue"]);
-const update = (y, m, d) => emit("update:modelValue", new Date(y, m, d));
+const update = (y: number, m: number, d: number) =>
+    emit("update:modelValue", new Date(y, m, d));
 </script>
 
 <template>
-    <form @submit.prevent="update">
+    <form>
         <label for="year">Year</label>
         <input id="year" v-model="year" type="number" placeholder="Year" />
         <label for="month">Month : {{ monthHuman }}</label>
