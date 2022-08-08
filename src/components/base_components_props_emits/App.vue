@@ -2,6 +2,7 @@
 import MyOption from "./MyOptionAPI.vue";
 import MyComp from "./MyCompositionAPI.vue";
 import NewFriend from "./NewFriend.vue";
+import TheInput from "./TheInput.vue";
 
 import { ref, computed } from "vue";
 
@@ -38,6 +39,8 @@ const newFriend = (name: string, phone: string, age: number): void => {
     toggleDetailsFor();
     friends.value.push({ name, phone, age, show: true });
 };
+
+const date = ref(new Date());
 </script>
 
 <template>
@@ -69,6 +72,10 @@ const newFriend = (name: string, phone: string, age: number): void => {
             boolean
             @toggle-details="toggleDetailsFor(index)"
         />
+    </article>
+    <article>
+        <TheInput v-model="date" />
+        <p>{{ date.toLocaleDateString("fr") }}</p>
     </article>
 </template>
 
