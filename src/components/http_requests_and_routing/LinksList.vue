@@ -83,13 +83,13 @@ onBeforeMount(load_links);
     </TheCard>
     <!-- v-else : Perf problem because the component is lost on v-if and we have to re-create the list after ? -->
     <!--<ul v-else>-->
-    <ul>
+    <transition-group tag="ul">
         <li v-for="link in links_sorted" :key="link.id">
             <TheCard>
                 <LinkCard :link="link" />
             </TheCard>
         </li>
-    </ul>
+    </transition-group>
 </template>
 
 <style scoped>
@@ -103,5 +103,9 @@ ul {
     color: #3a0061;
     border: none;
     padding: 0.75rem 1.5rem;
+}
+
+.v-move {
+    transition: transform 0.5s ease;
 }
 </style>
