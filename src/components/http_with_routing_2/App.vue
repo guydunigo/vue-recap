@@ -52,9 +52,11 @@ const tabs: TabInfo[] = [
         <main>
             <SelectTab :tabs="tabs" />
             <!-- No need to cache the input, better empty it -->
-            <KeepAlive include="LinksList">
-                <router-view />
-            </KeepAlive>
+            <router-view v-slot="{ Component }">
+                <KeepAlive include="LinksList">
+                    <component :is="Component" />
+                </KeepAlive>
+            </router-view>
         </main>
     </section>
 </template>

@@ -18,7 +18,7 @@ const networkError =
 const isError = ref(false);
 
 // Ensure person has saved before letting go...
-onBeforeRouteLeave((_, _2, next) => {
+onBeforeRouteLeave(() => {
     if (title.value !== "" || description.value !== "" || link.value !== "") {
         const userWantsToLeave = confirm(
             "You have unsaved changes, are you sure you want to leave ?"
@@ -26,9 +26,8 @@ onBeforeRouteLeave((_, _2, next) => {
         title.value = "";
         description.value = "";
         link.value = "";
-        next(userWantsToLeave);
+        return userWantsToLeave;
     }
-    next();
 });
 
 function addLink() {

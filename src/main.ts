@@ -26,10 +26,9 @@ const router = createRouter({
             path: "/base",
             component: BaseComponentsPropsEmits,
             // Can also be done in the component beforeRouteEnter
-            beforeEnter(to, from, next) {
+            beforeEnter(to, from) {
                 console.log("got intercepted to", to);
                 console.log("got intercepted from", from);
-                next();
             },
         },
         { path: "/provide", component: ProvideInject },
@@ -88,24 +87,20 @@ router.beforeResolve((to) => {
     }
 });
 // Manage redirects, ...
-router.beforeEach((to, from, next) => {
+router.beforeEach((to, from) => {
     if (!to.query.intercepted) {
-        // next(); // next(true) : continues to requested page
-        // next(false); // prevents
-        next({
+        return {
             ...to,
             query: { ...from.query, ...to.query, intercepted: "1" },
-        });
+        };
     } else if (
         to.query.isAuthenticated == null &&
         from.query.isAuthenticated != null
     ) {
-        next({
+        return {
             ...to,
             query: { ...to.query, isAuthenticated: from.query.isAuthenticated },
-        });
-    } else {
-        next();
+        };
     }
 });
 // router.afterEach((to, from) => {}) // more for logging, ...
