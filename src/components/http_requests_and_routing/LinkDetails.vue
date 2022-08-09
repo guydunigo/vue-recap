@@ -5,6 +5,7 @@ import TheCard from "./TheCard.vue";
 import AddLinkError from "./AddLinkError.vue";
 
 import { ref, onBeforeMount, watch, computed } from "vue";
+import { onBeforeRouteUpdate } from "vue-router";
 
 const props = defineProps<{ id: string }>();
 
@@ -56,9 +57,16 @@ const load_link = function (id: string) {
 };
 
 onBeforeMount(() => load_link(props.id));
-// Couldn't watch on the props directly...
-const id = computed(() => props.id);
-watch(id, (n) => load_link(n.toString()));
+// Couldn't watch the props directly...
+// So do this :
+// const id = computed(() => props.id);
+// watch(id, (n) => load_link(n.toString()));
+//
+// Or watch the route parameter
+//
+// Or mutch better :
+onBeforeRouteUpdate((to) => load_link(to.params.id.toString()));
+// Also : onBeforeRouteLeave, see ../http_with_routing_2/AddLink.vue
 </script>
 
 <template>
@@ -130,9 +138,7 @@ header > h1 {
     margin: 0;
     color: white;
 }
-</style>
 
-<style>
 nav {
     display: flex;
     flex-flow: wrap row;
