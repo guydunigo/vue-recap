@@ -6,7 +6,27 @@ import LinksList from "./LinksList.vue";
 import AddLink from "./AddLink.vue";
 import AddLinkError from "./AddLinkError.vue";
 
-import { ref, shallowRef, provide } from "vue";
+import { ref, shallowRef, provide, watch } from "vue";
+import {
+    useRouter,
+    useRoute,
+    type RouteLocationNormalizedLoaded,
+} from "vue-router";
+
+// ----------------------------------------------------------------
+// Network Error management
+const errorMsg = ref<undefined | { msg: string; error: string }>(undefined);
+const networkError = (msg: string, error: string) =>
+    (errorMsg.value = {
+        msg,
+        error,
+    });
+provide("networkError", networkError);
+
+const closeError = () => (errorMsg.value = undefined);
+
+// ----------------------------------------------------------------
+// Tab and subroutes
 
 const tabs: TabInfo[] = [
     {
@@ -19,21 +39,28 @@ const tabs: TabInfo[] = [
     },
 ];
 // No need for a full ref, we just need to watch the generic reference. Would loose performance to try and watch all sub-properties.
+// const activeTab = shallowRef<TabInfo>(tabs[props.subpath === "new" ? 1 : 0]);
 const activeTab = shallowRef<TabInfo>(tabs[0]);
-const selectTab = (t: TabInfo) => (activeTab.value = t);
 
-const linkAdded = () => selectTab(tabs[0]);
-provide("linkAdded", linkAdded);
+const router = useRouter();
+const route = useRoute();
 
-const errorMsg = ref<undefined | { msg: string; error: string }>(undefined);
-const networkError = (msg: string, error: string) =>
-    (errorMsg.value = {
-        msg,
-        error,
-    });
-provide("networkError", networkError);
+const checkRoute = (route: RouteLocationNormalizedLoaded) => {
+    if (route.params.subpath === "new") {
+        activeTab.value = tabs[1];
+    } else if (route.params.subpath !== "") {
+        router.replace({ params: { subpath: "base" } });
+    }
+};
 
-const closeError = () => (errorMsg.value = undefined);
+const selectTab = (t: TabInfo) =>
+    router.push({ params: { subpath: t === tabs[0] ? "base" : "new" } });
+watch(route, (newRoute) => {
+    activeTab.value = tabs[newRoute.params.subpath === "new" ? 1 : 0];
+});
+
+// On creation :
+checkRoute(route);
 </script>
 
 <template>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type Link from "./Link";
 
-import { inject } from "vue";
+import { computed, inject } from "vue";
 
 const props = defineProps<{ link: Link }>();
 
@@ -22,12 +22,17 @@ const deleteLink = () =>
                 networkError &&
                 networkError("An error occured when fetching the link list.", e)
         );
+
+const link_to_details = computed(() => "/link/" + props.link.id);
 </script>
 
 <template>
     <section>
         <header>
-            <h3>{{ props.link.title }}</h3>
+            <h3>
+                <router-link :to="link_to_details">#</router-link>
+                {{ props.link.title }}
+            </h3>
             <button class="flat" @click="deleteLink">Delete</button>
         </header>
         <p>{{ props.link.description }}</p>

@@ -11,7 +11,8 @@
         "serve": "json-server --watch db.json"
     },
     "dependencies": {
-        "vue": "^3.2.37"
+        "vue": "^3.2.37",
+        "vue-router": "^4.0.13"
     },
     "devDependencies": {
         "@rushstack/eslint-patch": "^1.1.4",

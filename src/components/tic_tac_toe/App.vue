@@ -128,7 +128,8 @@ const prompt_text = computed<string>(() => {
 article {
     display: flex;
     flex-flow: wrap row;
-    margin: 5rem;
+    margin: 5rem auto;
+    width: max-content;
 }
 
 main {

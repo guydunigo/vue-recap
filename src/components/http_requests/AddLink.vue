@@ -3,12 +3,15 @@ import type Link from "./Link";
 import TheCard from "./TheCard.vue";
 import AddLinkError from "./AddLinkError.vue";
 import { ref, inject } from "vue";
+import { useRouter } from "vue-router";
 
 const title = ref("");
 const description = ref("");
 const link = ref("");
 
-const linkAdded = inject<() => void>("linkAdded");
+const router = useRouter();
+const backToBase = () => router.push({ params: { subpath: "base" } });
+
 const networkError =
     inject<(msg: string, error: string) => void>("networkError");
 
@@ -22,7 +25,7 @@ function addLink() {
             title: title.value,
             description: description.value,
             link: link.value,
-            id: -1, // Dummy value replaced by json-server
+            id: 0, // Dummy value replaced by json-server
         };
 
         fetch("http://localhost:3000/links", {
@@ -34,7 +37,7 @@ function addLink() {
         })
             .then((r) => {
                 if (r.ok) {
-                    linkAdded && linkAdded();
+                    backToBase();
                 } else {
                     throw new Error("Server returned an error : " + r.status);
                 }
