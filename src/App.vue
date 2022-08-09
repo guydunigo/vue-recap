@@ -25,5 +25,35 @@ import NavBar from "./components/NavBar.vue";
     <!--<KeepAlive>-->
     <!--    <component :is="pageSelected" />-->
     <!--</KeepAlive>-->
-    <router-view />
+    <!--<router-view />-->
+    <router-view v-slot="{ Component }">
+        <Transition mode="out-in">
+            <KeepAlive>
+                <Component :is="Component" />
+            </KeepAlive>
+        </Transition>
+    </router-view>
 </template>
+
+<style scoped>
+.v-enter-from {
+    transform: translateX(-100%);
+}
+
+.v-enter-active {
+    transition: all 0.1s ease-out;
+}
+
+.v-leave-active {
+    transition: all 0.1s ease-in;
+}
+
+.v-enter-to,
+.v-leave-from {
+    transform: translateX(0);
+}
+
+.v-leave-to {
+    transform: translateX(100%);
+}
+</style>

@@ -12,6 +12,7 @@ import LinkDetails from "./components/http_requests_and_routing/LinkDetails.vue"
 import RoutingAdv from "./components/http_with_routing_2/App.vue";
 import LinksList from "./components/http_requests_and_routing/LinksList.vue";
 import AddLink from "./components/http_with_routing_2/AddLink.vue";
+import TheAnimation from "./components/animations/App.vue";
 
 import { createRouter, createWebHistory } from "vue-router";
 
@@ -63,6 +64,7 @@ const router = createRouter({
             path: "/:notFound(.*)", // Catch all unknown
             redirect: "/",
         },
+        { path: "/animations", component: TheAnimation },
     ],
     // linkActiveClass: "..." control which class is set
 
@@ -90,9 +92,18 @@ router.beforeEach((to, from, next) => {
     if (!to.query.intercepted) {
         // next(); // next(true) : continues to requested page
         // next(false); // prevents
-        next({ ...to, query: { ...from.query, ...to.query, intercepted: "1" } });
-    } else if (to.query.isAuthenticated == null && from.query.isAuthenticated != null) {
-        next({ ...to, query: { ...to.query, isAuthenticated: from.query.isAuthenticated } });
+        next({
+            ...to,
+            query: { ...from.query, ...to.query, intercepted: "1" },
+        });
+    } else if (
+        to.query.isAuthenticated == null &&
+        from.query.isAuthenticated != null
+    ) {
+        next({
+            ...to,
+            query: { ...to.query, isAuthenticated: from.query.isAuthenticated },
+        });
     } else {
         next();
     }
@@ -113,4 +124,6 @@ const app = createApp(App);
 
 app.use(router);
 
-app.mount("#app");
+// Wait for first route to be ready before mounting app :
+//  => prevents animations and all on loading
+router.isReady().then(() => app.mount("#app"));
